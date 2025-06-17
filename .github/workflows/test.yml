@@ -11,6 +11,10 @@ jobs:
     name: Test on Chrome
     runs-on: ubuntu-latest
 
+    env:
+      BROWSER: chrome
+      ENV: qa
+
     services:
       selenium:
         image: selenium/standalone-chrome:latest
@@ -33,7 +37,7 @@ jobs:
         run: npm install -g allure-commandline
 
       - name: Run Tests (Chrome)
-        run: mvn clean test -Dbrowser=chrome
+        run: mvn clean test -Dbrowser=${{ env.BROWSER }} -Denv=${{ env.ENV }}
 
       - name: Generate Allure Report
         run: |
